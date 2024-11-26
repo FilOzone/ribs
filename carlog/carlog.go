@@ -717,6 +717,7 @@ func (j *CarLog) Commit() (int64, error) {
 	defer j.idxLk.RUnlock()
 
 	// todo log commit?
+	j.wIdx.Sync()
 
 	if err := j.flushBuffered(); err != nil {
 		return 0, xerrors.Errorf("flushing buffered data: %w", err)
